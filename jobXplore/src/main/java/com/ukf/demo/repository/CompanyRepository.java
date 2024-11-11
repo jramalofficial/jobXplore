@@ -20,7 +20,8 @@ public interface CompanyRepository  extends JpaRepository<Company, Integer>{
 	   @Query("SELECT c FROM Company c WHERE c.comp_email = :email AND c.password = :password")
 	    Optional<Company> findByCompEmailAndPassword(@Param("email") String email, @Param("password") String password);
 	   
-
+	  
+//	    Optional<Company> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
 
 }

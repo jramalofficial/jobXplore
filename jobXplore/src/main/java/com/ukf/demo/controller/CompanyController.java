@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ukf.demo.model.Company;
-
+import com.ukf.demo.model.Job;
 import com.ukf.demo.service.CompanyService;
 
 
@@ -34,6 +35,12 @@ public class CompanyController {
 //		Company savedCompany = companyService.addCompany(company);
 //		return new ResponseEntity<>(savedCompany, HttpStatus.CREATED);
 //	}
+	@GetMapping("/")
+    public ModelAndView homeCompany() {
+        ModelAndView modelAndView = new ModelAndView("home");
+        modelAndView.addObject("company", new Company());
+        return modelAndView;
+    }
 	@GetMapping("/addCompany")
     public ModelAndView addCompany() {
         ModelAndView modelAndView = new ModelAndView("form");
@@ -46,6 +53,8 @@ public class CompanyController {
         modelAndView.addObject("company", new Company());
         return modelAndView;
     }
+	
+	
 	   // Save or update a product
 	@PostMapping("/saveCompany")
 	public ModelAndView saveCompany(
@@ -81,6 +90,24 @@ public class CompanyController {
         // Redirect after saving
         return new ModelAndView("redirect:/loginCompany"); // Redirects to the login page
     }
+	@PostMapping("/companydetails")
+	public ModelAndView loginCompany(@RequestParam("comp_email") String email, 
+	                                 @RequestParam("password") String password) {
+	    
+	    // Check if the company exists with the given email and password
+	    Optional<Company> company = companyService.getCompanyByEmailAndPassword(email, password);
+
+	    if (company.isPresent()) {
+	        // If login is successful, redirect to company details page
+	        return new ModelAndView("redirect:/list");
+	    } else {
+	        // If login fails, show an error message and redirect to the login page
+	        ModelAndView mav = new ModelAndView("login"); // Set the view to the same form page
+	        mav.addObject("company", new Company()); // Add a new company object to the model
+	        mav.addObject("message", "Incorrect email or password"); // Add the error message to the model
+	        return mav;
+	    }
+	}
 
     @PostMapping("/loginform")
     public ModelAndView login(
@@ -92,7 +119,7 @@ public class CompanyController {
 
         if (existingCompany.isPresent()) {
             // If the company with the provided email and password exists, redirect to the job vacancy adding page
-            return new ModelAndView("redirect:/addJobVacancy");
+            return new ModelAndView("redirect:/job/addJob");
         } else {
             // If the company with the provided email and password does not exist, show an error message
             ModelAndView mav = new ModelAndView("login"); // Set the view to the same login page
@@ -100,6 +127,8 @@ public class CompanyController {
             mav.addObject("message", "Invalid email or password"); // Add the error message to the model
             return mav;
         }
+        
+     
     }
 
 	

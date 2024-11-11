@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add/Update Company</title>
+<title>Employee Sign-Up</title>
 <style>
 /* General body styling */
 body {
@@ -90,7 +90,8 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="number"] {
+input[type="number"],
+input[type="password"] {
     width: 100%;
     padding: 12px 15px;
     margin-bottom: 15px;
@@ -103,7 +104,8 @@ input[type="number"] {
 
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="password"]:focus {
     border-color: #4CAF50;
     transform: scale(1.02);
 }
@@ -147,28 +149,28 @@ input[type="number"]:focus {
 <body>
 
 <div class="form-container">
-    <h2>${company.comp_id == null ? 'Add Company' : 'Company Details'}</h2> <!-- Add/Edit heading -->
+    <h2>${employee.emp_id == null ? 'Employee Sign-Up' : 'Employee Details'}</h2> <!-- Add/Edit heading -->
     <c:if test="${not empty message}">
         <div class="error-message">${message}</div>
     </c:if>
-    <form action="saveCompany" method="post">
-        <!-- Hidden input for company ID -->
-        <input type="hidden" id="comp_id" name="comp_id" value="${company.comp_id}">
+    <form action="saveEmployee" method="post">
+        <!-- Hidden input for employee ID -->
+        <input type="hidden" id="emp_id" name="emp_id" value="${employee.emp_id}">
         
-        <label for="comp_name"><i class="fas fa-building"></i> Company Name:</label>
-        <input type="text" id="comp_name" name="comp_name" required value="${company.comp_name != null ? company.comp_name : ''}">
+        <label for="emp_name"><i class="fas fa-user"></i> Employee Name:</label>
+        <input type="text" id="emp_name" name="emp_name" required value="${employee.emp_name != null ? employee.emp_name : ''}">
 
-        <label for="comp_email"><i class="fas fa-envelope"></i> Company Email:</label>
-        <input type="email" id="comp_email" name="comp_email" required value="${company.comp_email != null ? company.comp_email : ''}">
-        
+        <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+        <input type="email" id="email" name="email" required value="${employee.email != null ? employee.email : ''}">
+
+        <label for="phone_no"><i class="fas fa-phone"></i> Phone Number:</label>
+        <input type="number" id="phone_no" name="phone_no" required value="${employee.phone_no != null ? employee.phone_no : ''}">
+
+        <label for="location"><i class="fas fa-map-marker-alt"></i> Location:</label>
+        <input type="text" id="location" name="location" required value="${employee.location != null ? employee.location : ''}">
+
         <label for="password"><i class="fas fa-lock"></i> Password:</label>
-        <input type="text" id="password" name="password" required value="${company.password != null ? company.password : ''}">
-
-        <label for="contact_no"><i class="fas fa-phone"></i> Contact Number:</label>
-        <input type="number" id="contact_no" name="contact_no" required value="${company.contact_no != null ? company.contact_no : ''}">
-
-        <label for="comp_location"><i class="fas fa-map-marker-alt"></i> Company Location:</label>
-        <input type="text" id="comp_location" name="comp_location" required value="${company.comp_location != null ? company.comp_location : ''}">
+        <input type="password" id="password" name="password" required value="${employee.password != null ? employee.password : ''}">
 
         <input type="submit" value="Sign Up" class="submit-btn">
     </form>

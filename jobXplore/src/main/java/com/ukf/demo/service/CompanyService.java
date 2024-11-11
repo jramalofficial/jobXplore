@@ -35,6 +35,9 @@ public class CompanyService {
 	 public Optional<Company> getCompanyByEmailAndPassword(String email, String password) {
 	        return companyRepository.findByCompEmailAndPassword(email, password);
 	    }
+//	 public Optional<Company> findByEmailAndPassword(String email, String password) {
+//	        return companyRepository.findByEmailAndPassword(email, password);
+//	    }
 
 
 //	public List<Company> getAllCompanies() {

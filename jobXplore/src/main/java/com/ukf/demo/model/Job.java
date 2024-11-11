@@ -1,9 +1,10 @@
 package com.ukf.demo.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+@Entity
 public class Job {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,14 +13,15 @@ public class Job {
     private String job_title;
     private String job_description;
     private String job_location;
+    private String job_experience;
     private double salary;
 	public Job() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Job(Long job_id, String job_title, String job_description, String job_location, double salary) {
+	public Job( String job_title, String job_description, String job_location, double salary) {
 		super();
-		this.job_id = job_id;
+		
 		this.job_title = job_title;
 		this.job_description = job_description;
 		this.job_location = job_location;
@@ -27,6 +29,13 @@ public class Job {
 	}
 	public Long getJob_id() {
 		return job_id;
+	}
+	
+	public String getJob_experience() {
+		return job_experience;
+	}
+	public void setJob_experience(String job_experience) {
+		this.job_experience = job_experience;
 	}
 	public void setJob_id(Long job_id) {
 		this.job_id = job_id;
@@ -58,7 +67,8 @@ public class Job {
 	@Override
 	public String toString() {
 		return "Job [job_id=" + job_id + ", job_title=" + job_title + ", job_description=" + job_description
-				+ ", job_location=" + job_location + ", salary=" + salary + "]";
+				+ ", job_location=" + job_location + ", job_experience=" + job_experience + ", salary=" + salary + "]";
 	}
+
     
 }
